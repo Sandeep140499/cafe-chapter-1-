@@ -162,10 +162,10 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                         <td className="border border-gray-200 p-4 font-medium">{item.name}</td>
                         <td className="border border-gray-200 p-4">{item.quantity} {item.unit}</td>
                         <td className="border border-gray-200 p-4 text-center">
-                          {item.available && <span className="text-green-600 font-bold">✓</span>}
+                          {item.available && <span className="text-green-600 font-bold">Available</span>}
                         </td>
                         <td className="border border-gray-200 p-4 text-center">
-                          {item.notAvailable && <span className="text-red-600 font-bold">✓</span>}
+                          {item.notAvailable && <span className="text-red-600 font-bold">NotAvailable</span>}
                         </td>
                       </tr>
                     ))}

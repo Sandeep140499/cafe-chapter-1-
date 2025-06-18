@@ -28,7 +28,7 @@ const WelcomePage = ({ onStart }: WelcomePageProps) => {
               Inventory Management System
             </h2>
             <p className="text-gray-600">
-              Manage your cafe's inventory efficiently with our digital system
+             cafe's inventory 
             </p>
           </div>
           
