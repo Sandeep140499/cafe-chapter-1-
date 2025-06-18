@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Coffee, Package, ArrowLeft, User } from 'lucide-react';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 interface InventoryItem {
   id: string;
@@ -81,6 +83,69 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
     setItems(items.filter(item => item.id !== id));
   };
 
+  // PDF generation function (add this inside the component)
+  const generatePdf = (submitterName: string, items: InventoryItem[], submissionDate: Date) => {
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    });
+
+    // Prepare table data
+    const tableData = items.map(item => [
+      item.name,
+      `${item.quantity} ${item.unit}`,
+      item.available ? 'Available' : '',
+      item.notAvailable ? 'Not-Available' : ''
+    ]);
+
+    // Format date and time
+    const dateString = submissionDate.toLocaleDateString();
+    const timeString = submissionDate.toLocaleTimeString();
+
+    // Title
+    doc.setFontSize(14);
+    doc.text("Cafe Chapter 1 Gautam Nagar Inventory Report", 105, 15, { align: "center" });
+
+    // Submitted by and date/time
+    doc.setFontSize(10);
+    doc.text(`Submitted by: ${submitterName}`, 105, 22, { align: "center" });
+    doc.text(`Date: ${dateString}   Time: ${timeString}`, 105, 28, { align: "center" });
+
+    // Table
+    doc.autoTable({
+      head: [['Item Name', 'Quantity', 'Available', 'Not Available']],
+      body: tableData,
+      startY: 35,
+      theme: 'grid',
+      styles: {
+        fontSize: 8,
+        cellPadding: 3,
+        halign: 'center',
+        valign: 'middle',
+        textColor: [40, 40, 40]
+      },
+      headStyles: {
+        fillColor: [41, 128, 185],
+        textColor: [255, 255, 255],
+        fontStyle: 'bold'
+      },
+      bodyStyles: {
+        fillColor: [236, 240, 241],
+        textColor: [44, 62, 80]
+      },
+      alternateRowStyles: {
+        fillColor: [255, 255, 255]
+      },
+      columnStyles: {
+        2: { textColor: [39, 174, 96] },
+        3: { textColor: [192, 57, 43] }
+      }
+    });
+
+    doc.save("cafe-inventory.pdf");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!submitterName.trim()) {
@@ -95,7 +160,10 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
     };
     
     onSubmit(submissionData);
-    
+
+    // Generate PDF with name and date/time
+    generatePdf(submissionData.submitterName, submissionData.items, submissionData.submissionDate);
+
     // Reset form after submission
     setSubmitterName('');
     resetForm();

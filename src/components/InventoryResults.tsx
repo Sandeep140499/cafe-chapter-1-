@@ -29,59 +29,63 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
   const { submitterName, items, submissionDate } = data;
 
   const generatePDF = () => {
-    const doc = new jsPDF();
-    
-    // Add title
-    doc.setFontSize(20);
-    doc.setFont('helvetica', 'bold');
-    doc.text('CAFE CHAPTER 1 GAUTAM NAGAR', 105, 20, { align: 'center' });
-    
-    doc.setFontSize(16);
-    doc.text('Inventory Report', 105, 30, { align: 'center' });
-    
-    // Add submission details
-    const dateStr = submissionDate.toLocaleDateString('en-IN');
-    const timeStr = submissionDate.toLocaleTimeString('en-IN');
-    
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Submitted by: ${submitterName}`, 20, 45);
-    doc.text(`Date: ${dateStr}`, 20, 52);
-    doc.text(`Time: ${timeStr}`, 20, 59);
-    
     // Prepare table data
     const tableData = items.map(item => [
       item.name,
       `${item.quantity} ${item.unit}`,
-      item.available ? '✓' : '',
-      item.notAvailable ? '✓' : ''
+      item.available ? 'Available' : '',
+      item.notAvailable ? 'Not-Available' : ''
     ]);
 
-    // Generate table using autoTable
+    // Format date and time from submissionDate
+    const dateString = new Date(submissionDate).toLocaleDateString('en-IN');
+    const timeString = new Date(submissionDate).toLocaleTimeString('en-IN');
+
+    // Create PDF
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    });
+
+    doc.setFontSize(14);
+    doc.text("Cafe Chapter 1 Gautam Nagar Inventory Report", 105, 15, { align: "center" });
+
+    doc.setFontSize(10);
+    doc.text(`Submitted by: ${submitterName}`, 105, 22, { align: "center" });
+    doc.text(`Date: ${dateString}   Time: ${timeString}`, 105, 28, { align: "center" });
+
     autoTable(doc, {
-      head: [['Item Name', 'Net Quantity', 'Available', 'Not Available']],
+      head: [['Item Name', 'Quantity', 'Available', 'Not Available']],
       body: tableData,
-      startY: 67,
-      theme: 'striped',
+      startY: 35,
+      theme: 'grid',
+      styles: {
+        fontSize: 8,
+        cellPadding: 3,
+        halign: 'center',
+        valign: 'middle',
+        textColor: [40, 40, 40]
+      },
       headStyles: {
-        fillColor: [101, 67, 33],
+        fillColor: [41, 128, 185], // Blue header
         textColor: [255, 255, 255],
         fontStyle: 'bold'
       },
-      styles: {
-        fontSize: 10,
-        cellPadding: 5
+      bodyStyles: {
+        fillColor: [236, 240, 241], // Light gray rows
+        textColor: [44, 62, 80]
+      },
+      alternateRowStyles: {
+        fillColor: [255, 255, 255] // White for alternate rows
       },
       columnStyles: {
-        0: { cellWidth: 60 },
-        1: { cellWidth: 40 },
-        2: { cellWidth: 30, halign: 'center' },
-        3: { cellWidth: 30, halign: 'center' }
+        2: { textColor: [39, 174, 96] }, // Green for 'Available'
+        3: { textColor: [192, 57, 43] }  // Red for 'Not-Available'
       }
     });
 
-    // Save the PDF
-    doc.save(`Cafe_Inventory_${submitterName}_${new Date().toISOString().split('T')[0]}.pdf`);
+    doc.save("cafe-inventory.pdf");
   };
 
   return (
