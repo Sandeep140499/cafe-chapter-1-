@@ -25,60 +25,65 @@ type InventorySection = {
 
 const initialSections: InventorySection[] = [
   {
-    title: 'BANSAL / ANKIT TRADERS ITEMS',
+    title: 'GROCREY ITEMS',
     items: [
-      { id: '1', name: 'Sugar', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '2', name: 'Rice', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '3', name: 'Poha', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '4', name: 'Mungfali', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '5', name: 'Maida', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '6', name: 'Ararot', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '7', name: 'Pasta', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '8', name: 'Ajinomoto', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '9', name: 'Corn Flakes', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '10', name: 'KitKat', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '11', name: 'Soya Sauce', quantity: '', unit: 'btl', available: false, notAvailable: false },
-      { id: '12', name: 'Kisamis', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '1', name: 'sugar', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '2', name: 'bura', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '3', name: 'dairyMilk', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '4', name: 'kewraJal', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '5', name: 'maida', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '6', name: 'ararot', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '7', name: 'pasta', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '8', name: 'sabutLalMirch', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '9', name: 'cornFlakes', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '10', name: 'kitKat', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '11', name: 'dryFruits', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '12', name: 'maggiMasala', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '13', name: 'oreo', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '14', name: 'tea', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '15', name: 'maggi', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '16', name: 'oil', quantity: '', unit: 'pkt', available: false, notAvailable: false },
     ],
   },
   {
     title: 'MOMOS',
     items: [
-      { id: '13', name: 'Veg Momos', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '14', name: 'Paneer Momos', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '15', name: 'Chicken Momos', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '17', name: 'vegMomos', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '18', name: 'paneerMomos', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '19', name: 'chickenMomos', quantity: '', unit: 'pcs', available: false, notAvailable: false },
     ],
   },
   {
-    title: 'FRUITS',
+    title: 'COLDDRINKS',
     items: [
-      { id: '16', name: 'Apple', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '17', name: 'Banana', quantity: '', unit: 'dozen', available: false, notAvailable: false },
-      { id: '18', name: 'Anar', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '20', name: 'coke', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '21', name: 'sprite', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '22', name: 'fanta', quantity: '', unit: 'pcs', available: false, notAvailable: false },
     ],
   },
   {
     title: 'DAILY ITEMS',
     items: [
-      { id: '19', name: 'Chicken', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '20', name: 'Paneer', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '21', name: 'Ice', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '22', name: 'Sweetcorn', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '23', name: 'Noodles', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '24', name: 'Amul Moti', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '25', name: 'Pizza Large', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '26', name: 'Pizza Small', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '27', name: 'Milk', quantity: '', unit: 'ltr', available: false, notAvailable: false },
-      { id: '28', name: 'Garlic Breads', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '29', name: 'Burger Bun', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '30', name: 'Jumbo Bread', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '31', name: 'Milk Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '32', name: 'Coffee', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '33', name: 'Dahi', quantity: '', unit: 'kg', available: false, notAvailable: false },
-      { id: '34', name: 'Mustard Oil', quantity: '', unit: 'ltr', available: false, notAvailable: false },
-      { id: '35', name: 'Food Cream', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '36', name: 'Egg', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '37', name: 'Cookies', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '23', name: 'chicken', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '24', name: 'paneer', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '25', name: 'ice', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '26', name: 'sweetcorn', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '27', name: 'smokedChicken', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '28', name: 'chickenTikka', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '29', name: 'paneerTikka', quantity: '', unit: 'g', available: false, notAvailable: false },
+      { id: '30', name: 'pizzaLarge', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '31', name: 'pizzaSmall', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '32', name: 'milk', quantity: '', unit: 'ltr', available: false, notAvailable: false },
+      { id: '33', name: 'garlicBreads', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '34', name: 'burgerBun', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '35', name: 'jumboBread', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '36', name: 'milkPowder', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '37', name: 'coffee', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '38', name: 'dahi', quantity: '', unit: 'kg', available: false, notAvailable: false },
+      { id: '39', name: 'mustardOil', quantity: '', unit: 'ltr', available: false, notAvailable: false },
+      { id: '40', name: 'rabri', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '41', name: 'egg', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '42', name: 'butter', quantity: '', unit: 'pkt', available: false, notAvailable: false },
     ],
   },
   {
@@ -96,7 +101,6 @@ const initialSections: InventorySection[] = [
       { id: '47', name: 'Dhania Pata', quantity: '', unit: 'bunch', available: false, notAvailable: false },
       { id: '48', name: 'Pudina', quantity: '', unit: 'bunch', available: false, notAvailable: false },
       { id: '49', name: 'Nimbu', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '50', name: 'Lettuce', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '51', name: 'Khira', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '52', name: 'Broccoli', quantity: '', unit: 'pcs', available: false, notAvailable: false },
     ],
@@ -105,20 +109,20 @@ const initialSections: InventorySection[] = [
     title: 'SAUCES / FLAVOURS (ROL / HYPER PURE)',
     items: [
       { id: '53', name: 'Cheese', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '54', name: 'Thousand Island', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '54', name: 'Jalapeno Dip ', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '55', name: 'Oregano', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '56', name: 'Black Olive', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '56', name: 'Aloo Tikki ', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '57', name: 'Chicken Patty', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '58', name: 'Jalapeno', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '58', name: 'Sugar Pouch', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '59', name: 'Pizza Pasta Sauce', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '60', name: 'Tomato Ketchup', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '61', name: 'Sugar Pouch', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '61', name: 'Momo Mayo ', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '62', name: 'Cheese Slice', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '63', name: 'Peri Peri Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '64', name: 'White Sauce', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '65', name: 'Chilly Flakes', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '66', name: 'Veg Patty', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '67', name: 'Tortilla Wrap', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+      { id: '67', name: 'Funfood Mayo', quantity: '', unit: 'pkt', available: false, notAvailable: false },
     ],
   },
   {
@@ -128,11 +132,12 @@ const initialSections: InventorySection[] = [
       { id: '69', name: 'Small Pizza Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '70', name: 'Round Small Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '71', name: 'Wooden Fork', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '72', name: 'Hot Coffee Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '72', name: 'Hot Coffee Box 150 ml', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '72', name: 'Hot Coffee Box 200 ml', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '73', name: 'Momos Chatani Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '74', name: 'Butter Paper', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '75', name: 'Roll Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '76', name: 'Black Rect Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '75', name: 'Momo Plate ', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '76', name: 'Pasta Bowl  ', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '77', name: 'Straw', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '78', name: 'Wooden Spoon', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '79', name: 'Large Envelope', quantity: '', unit: 'pcs', available: false, notAvailable: false },
@@ -141,8 +146,10 @@ const initialSections: InventorySection[] = [
       { id: '82', name: 'Polybag', quantity: '', unit: 'pkt', available: false, notAvailable: false },
       { id: '83', name: 'Small Aluminium Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '84', name: 'Cold Coffee Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '84', name: 'Cold Coffee Box Packaging', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '85', name: 'Large Aluminium Box', quantity: '', unit: 'pcs', available: false, notAvailable: false },
-      { id: '86', name: 'Kulhad', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '86', name: 'Kulhad Tea', quantity: '', unit: 'pcs', available: false, notAvailable: false },
+      { id: '86', name: 'Kulhad Lassi', quantity: '', unit: 'pcs', available: false, notAvailable: false },
       { id: '87', name: 'Coffee Stick', quantity: '', unit: 'pkt', available: false, notAvailable: false },
     ],
   },
@@ -158,9 +165,9 @@ const initialSections: InventorySection[] = [
       { id: '94', name: 'Watermelon', quantity: '', unit: 'btl', available: false, notAvailable: false },
       { id: '95', name: 'Butterscotch', quantity: '', unit: 'btl', available: false, notAvailable: false },
       { id: '96', name: 'Hazelnut', quantity: '', unit: 'btl', available: false, notAvailable: false },
-      { id: '97', name: 'Blueberry', quantity: '', unit: 'btl', available: false, notAvailable: false },
+      { id: '97', name: 'Mango', quantity: '', unit: 'btl', available: false, notAvailable: false },
       { id: '98', name: 'Mint Mojito', quantity: '', unit: 'btl', available: false, notAvailable: false },
-      { id: '99', name: 'Blue Iceberg', quantity: '', unit: 'btl', available: false, notAvailable: false },
+      { id: '99', name: 'Orange ', quantity: '', unit: 'btl', available: false, notAvailable: false },
       { id: '100', name: 'Strawberry Mocktail', quantity: '', unit: 'btl', available: false, notAvailable: false },
       { id: '101', name: 'Soda', quantity: '', unit: 'btl', available: false, notAvailable: false },
       { id: '102', name: 'Water Bottle', quantity: '', unit: 'btl', available: false, notAvailable: false },
@@ -178,15 +185,15 @@ const initialSections: InventorySection[] = [
       { id: '109', name: 'Kali Mirch', quantity: '', unit: 'pkt', available: false, notAvailable: false },
     ],
   },
-  {
-    title: 'SOUP',
-    items: [
-      { id: '110', name: 'Chicken', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '111', name: 'Sweetcorn', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '112', name: 'Tomato', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-      { id: '113', name: 'Hot & Sour', quantity: '', unit: 'pkt', available: false, notAvailable: false },
-    ],
-  },
+  // {
+  //   title: 'SOUP',
+  //   items: [
+  //     { id: '110', name: 'Chicken', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+  //     { id: '111', name: 'Sweetcorn', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+  //     { id: '112', name: 'Tomato', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+  //     { id: '113', name: 'Hot & Sour', quantity: '', unit: 'pkt', available: false, notAvailable: false },
+  //   ],
+  // },
 ];
 
 interface InventoryFormProps {
@@ -197,6 +204,7 @@ interface InventoryFormProps {
 const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
   const [submitterName, setSubmitterName] = useState('');
   const [sections, setSections] = useState<InventorySection[]>(initialSections);
+  const [customUnits, setCustomUnits] = useState<{ [id: string]: string }>({});
 
   const resetForm = () => setSections(initialSections);
 
@@ -326,13 +334,13 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
       alert('Please enter your name before submitting');
       return;
     }
-    
+
     const submissionData = {
       submitterName: submitterName.trim(),
       items: sections.flatMap(section => section.items),
       submissionDate: new Date()
     };
-    
+
     onSubmit(submissionData);
 
     // Generate PDF with name and date/time
@@ -342,6 +350,13 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
     setSubmitterName('');
     resetForm();
   };
+
+  const handleUnitChange = (itemId: string, newUnit: string) => {
+    setCustomUnits(prev => ({ ...prev, [itemId]: newUnit }));
+    // ...update item logic...
+  };
+
+  const allUnits = ['kg', 'g', 'pkt', 'pcs', 'ltr', 'bunch', 'btl']; // Add all possible units
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-6">
@@ -366,7 +381,7 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
               <div className="w-10"></div>
             </div>
           </CardHeader>
-          
+
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input Section */}
@@ -430,14 +445,20 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                                   className="border-0 focus-visible:ring-0 bg-transparent flex-1"
                                 />
                                 <select
-                                  value={item.unit}
-                                  onChange={(e) => updateItem(sectionIdx, itemIdx, 'unit', e.target.value)}
+                                  value={customUnits[item.id] || item.unit}
+                                  onChange={e => handleUnitChange(item.id, e.target.value)}
                                   className="border border-gray-200 rounded px-2 py-1 text-sm"
                                 >
-                                  <option value="kg">kg</option>
-                                  <option value="pkt">pkt</option>
-                                  <option value="ltr">ltr</option>
-                                  <option value="pcs">pcs</option>
+                                  {/* Default (custom or original) unit */}
+                                  <option value={customUnits[item.id] || item.unit}>
+                                    {customUnits[item.id] || item.unit}
+                                  </option>
+                                  {/* Other units */}
+                                  {allUnits
+                                    .filter(u => u !== (customUnits[item.id] || item.unit))
+                                    .map(u => (
+                                      <option key={u} value={u}>{u}</option>
+                                    ))}
                                 </select>
                               </div>
                             </td>

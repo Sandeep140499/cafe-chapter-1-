@@ -17,8 +17,8 @@ const WelcomePage = ({ onStart }: WelcomePageProps) => {
             <Coffee className="h-12 w-12" />
           </div>
           <CardTitle className="text-3xl font-bold">Welcome to</CardTitle>
-          <h1 className="text-2xl font-semibold mt-2">CHAPTER 1 CAFE</h1>
-          <p className="text-xl text-amber-100 mt-1">Gautam Nagar</p>
+          <h1 className="text-2xl font-semibold mt-2">CAFE CHAPTER 1 RESTRO PRIVATE LIMITED</h1>
+          <p className="text-xl text-amber-100 mt-1">KATWARIA SARAI - NEW DELHI</p>
         </CardHeader>
         
         <CardContent className="p-8 text-center">
@@ -28,7 +28,7 @@ const WelcomePage = ({ onStart }: WelcomePageProps) => {
               Inventory Management System
             </h2>
             <p className="text-gray-600">
-             cafe's inventory 
+             Cafe's inventory 
             </p>
           </div>
           
