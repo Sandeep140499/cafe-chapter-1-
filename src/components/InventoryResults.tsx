@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Coffee, Download, ArrowLeft, User, Calendar, Clock } from 'lucide-react';
+import { Coffee, Download, ArrowLeft, User, Calendar, Clock, Package } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -10,9 +10,11 @@ interface InventoryItem {
   id: string;
   name: string;
   quantity: string;
-  unit: 'kg' | 'pkt' | 'ltr' | 'pcs';
+  unit: string;
   available: boolean;
   notAvailable: boolean;
+  minRequired?: number;
+  pricePerUnit?: number;
 }
 
 interface InventoryResultsProps {
@@ -25,67 +27,123 @@ interface InventoryResultsProps {
   onNewForm: () => void;
 }
 
+const convertToBaseUnit = (qty: number, fromUnit: string, baseUnit: string): number => {
+  if (fromUnit === baseUnit) return qty;
+  if (fromUnit === 'g' && baseUnit === 'kg') return qty / 1000;
+  if (fromUnit === 'kg' && baseUnit === 'g') return qty * 1000;
+  if (fromUnit === 'ml' && baseUnit === 'ltr') return qty / 1000;
+  if (fromUnit === 'ltr' && baseUnit === 'ml') return qty * 1000;
+  return qty;
+};
+
 const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) => {
   const { submitterName, items, submissionDate } = data;
 
+  // Calculate price for each item and total
+  const itemsWithPrice = items.map(item => {
+    const enteredQty = parseFloat(item.quantity) || 0;
+    const minRequired = item.minRequired || 0;
+    const pricePerUnit = item.pricePerUnit || 0;
+    const baseUnit = item.unit;
+    // If you allow custom units, use them here, otherwise use baseUnit
+    const enteredUnit = item.unit; // or customUnits[item.id] if you pass it
+    const qtyForPrice = convertToBaseUnit(enteredQty, enteredUnit, baseUnit);
+    const price = (qtyForPrice > 0 && pricePerUnit > 0 && minRequired > 0)
+      ? (qtyForPrice / minRequired) * pricePerUnit
+      : 0;
+    return { ...item, price, qtyForPrice };
+  });
+
+  const totalPrice = itemsWithPrice.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  // Only required items (entered quantity > 0)
+  const requiredItems = itemsWithPrice.filter(
+    item => item.qtyForPrice > 0 || item.notAvailable
+  );
+
+  // PDF for all items (with required and price)
   const generatePDF = () => {
-    // Prepare table data
-    const tableData = items.map(item => [
+    const tableData = itemsWithPrice.map(item => [
       item.name,
       `${item.quantity} ${item.unit}`,
+      `${item.minRequired ?? '-'} ${item.unit}`,
+      item.pricePerUnit ? `₹${item.pricePerUnit}` : '-',
+      item.price ? `₹${item.price.toFixed(2)}` : '-',
       item.available ? 'Available' : '',
       item.notAvailable ? 'Not-Available' : ''
     ]);
-
-    // Format date and time from submissionDate
     const dateString = new Date(submissionDate).toLocaleDateString('en-IN');
     const timeString = new Date(submissionDate).toLocaleTimeString('en-IN');
-
-    // Create PDF
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4"
-    });
-
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     doc.setFontSize(14);
     doc.text("Cafe Chapter 1 Gautam Nagar Inventory Report", 105, 15, { align: "center" });
-
     doc.setFontSize(10);
     doc.text(`Submitted by: ${submitterName}`, 105, 22, { align: "center" });
     doc.text(`Date: ${dateString}   Time: ${timeString}`, 105, 28, { align: "center" });
-
     autoTable(doc, {
-      head: [['Item Name', 'Quantity', 'Available', 'Not Available']],
+      head: [['Item Name', 'Net Quantity', 'Required', 'Price/Unit', 'Price', 'Available', 'Not Available']],
       body: tableData,
       startY: 35,
       theme: 'grid',
-      styles: {
-        fontSize: 8,
-        cellPadding: 3,
-        halign: 'center',
-        valign: 'middle',
-        textColor: [40, 40, 40]
-      },
-      headStyles: {
-        fillColor: [41, 128, 185], // Blue header
-        textColor: [255, 255, 255],
-        fontStyle: 'bold'
-      },
-      bodyStyles: {
-        fillColor: [236, 240, 241], // Light gray rows
-        textColor: [44, 62, 80]
-      },
-      alternateRowStyles: {
-        fillColor: [255, 255, 255] // White for alternate rows
-      },
-      columnStyles: {
-        2: { textColor: [39, 174, 96] }, // Green for 'Available'
-        3: { textColor: [192, 57, 43] }  // Red for 'Not-Available'
+      styles: { fontSize: 8, cellPadding: 3, halign: 'center', valign: 'middle', textColor: [40, 40, 40] },
+      headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255], fontStyle: 'bold' },
+      bodyStyles: { fillColor: [236, 240, 241], textColor: [44, 62, 80] },
+      alternateRowStyles: { fillColor: [255, 255, 255] },
+      columnStyles: { 5: { textColor: [39, 174, 96] }, 6: { textColor: [192, 57, 43] } }
+    });
+    doc.save("cafe-inventory-full.pdf");
+  };
+
+  // PDF for required items only
+  const generateRequiredPDF = () => {
+    const tableData = requiredItems.map(item => {
+      // If not available, use minRequired as quantity and price for minRequired
+      let displayQty = item.notAvailable
+        ? (item.minRequired ?? 0)
+        : item.quantity;
+      let displayPrice = '-';
+      if (item.notAvailable && item.pricePerUnit && item.minRequired) {
+        displayPrice = `₹${(item.pricePerUnit * item.minRequired).toFixed(2)}`;
+      } else if (!item.notAvailable && item.price) {
+        displayPrice = `₹${item.price.toFixed(2)}`;
       }
+      return [
+        item.name,
+        `${displayQty} ${item.unit}`,
+        displayPrice
+      ];
     });
 
-    doc.save("cafe-inventory.pdf");
+    const dateString = new Date(submissionDate).toLocaleDateString('en-IN');
+    const timeString = new Date(submissionDate).toLocaleTimeString('en-IN');
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    doc.setFontSize(14);
+    doc.text("Cafe Chapter 1 Gautam Nagar Required Items", 105, 15, { align: "center" });
+    doc.setFontSize(10);
+    doc.text(`Submitted by: ${submitterName}`, 105, 22, { align: "center" });
+    doc.text(`Date: ${dateString}   Time: ${timeString}`, 105, 28, { align: "center" });
+    autoTable(doc, {
+      head: [['Item Name', 'Net Quantity', 'Price']],
+      body: tableData,
+      startY: 35,
+      theme: 'grid',
+      styles: { fontSize: 8, cellPadding: 3, halign: 'center', valign: 'middle', textColor: [40, 40, 40] },
+      headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255], fontStyle: 'bold' },
+      bodyStyles: { fillColor: [236, 240, 241], textColor: [44, 62, 80] },
+      alternateRowStyles: { fillColor: [255, 255, 255] }
+    });
+    // Calculate total price for required items
+    const total = requiredItems.reduce((sum, item) => {
+      if (item.notAvailable && item.pricePerUnit && item.minRequired) {
+        return sum + (item.pricePerUnit * item.minRequired);
+      } else if (!item.notAvailable && item.price) {
+        return sum + item.price;
+      }
+      return sum;
+    }, 0);
+    doc.setFontSize(12);
+    doc.text(`Total Price: ₹${total.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 10, { align: "right" });
+    doc.save("cafe-required-items.pdf");
   };
 
   return (
@@ -111,7 +169,6 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
               <div className="w-10"></div>
             </div>
           </CardHeader>
-          
           <CardContent className="p-8">
             {/* Submission Details */}
             <div className="bg-amber-50 p-6 rounded-lg border border-amber-200 mb-8">
@@ -149,22 +206,27 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                   {items.length} Items
                 </Badge>
               </div>
-
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
                   <thead>
                     <tr className="bg-amber-600 text-white">
                       <th className="border border-amber-700 p-4 text-left font-semibold">Item Name</th>
-                      <th className="border border-amber-700 p-4 text-left font-semibold">Net Quantity</th>
+                      <th className="border border-amber-700 p-4 text-left font-semibold">Available Quantity</th>
+                      <th className="border border-amber-700 p-4 text-center font-semibold">Required</th>
+                      <th className="border border-amber-700 p-4 text-center font-semibold">Price/Unit</th>
+                      <th className="border border-amber-700 p-4 text-center font-semibold">Price</th>
                       <th className="border border-amber-700 p-4 text-center font-semibold">Available</th>
                       <th className="border border-amber-700 p-4 text-center font-semibold">Not Available</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {items.map((item, index) => (
+                    {itemsWithPrice.map((item, index) => (
                       <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-amber-25'}>
                         <td className="border border-gray-200 p-4 font-medium">{item.name}</td>
                         <td className="border border-gray-200 p-4">{item.quantity} {item.unit}</td>
+                        <td className="border border-gray-200 p-4 text-center">{item.minRequired ?? '-'} {item.unit}</td>
+                        <td className="border border-gray-200 p-4 text-center">{item.pricePerUnit ? `₹${item.pricePerUnit}` : '-'}</td>
+                        <td className="border border-gray-200 p-4 text-center">{item.price ? `₹${item.price.toFixed(2)}` : '-'}</td>
                         <td className="border border-gray-200 p-4 text-center">
                           {item.available && <span className="text-green-600 font-bold">Available</span>}
                         </td>
@@ -178,6 +240,80 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
               </div>
             </div>
 
+            {/* Required Items Table */}
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <Package className="h-5 w-5 text-amber-600" />
+                  <h3 className="text-lg font-semibold text-gray-800">Required Items & Prices</h3>
+                </div>
+                <Badge variant="outline" className="text-amber-600 border-amber-200">
+                  {requiredItems.length} Required
+                </Badge>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
+                  <thead>
+                    <tr className="bg-orange-100 text-amber-700">
+                      <th className="border border-amber-200 p-4 text-left font-semibold">Item Name</th>
+                      <th className="border border-amber-200 p-4 text-left font-semibold">Net Quantity</th>
+                      <th className="border border-amber-200 p-4 text-center font-semibold">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {requiredItems.map((item, index) => {
+                      // If not available, show minRequired as quantity and price for minRequired
+                      let displayQty = item.notAvailable
+                        ? (item.minRequired ?? 0)
+                        : item.quantity;
+                      let displayPrice = item.notAvailable
+                        ? ((item.pricePerUnit && item.minRequired) ? (item.pricePerUnit).toFixed(2) : '-')
+                        : (item.price ? item.price.toFixed(2) : '-');
+
+                      // If not available, calculate price for minRequired
+                      if (item.notAvailable && item.pricePerUnit && item.minRequired) {
+                        displayPrice = `₹${(item.pricePerUnit).toFixed(2)}`;
+                        // If pricePerUnit is for minRequired unit, price is pricePerUnit
+                        // If pricePerUnit is per unit, and minRequired is not 1, multiply
+                        if (item.minRequired !== 1) {
+                          displayPrice = `₹${(item.pricePerUnit * item.minRequired).toFixed(2)}`;
+                        }
+                      } else if (!item.notAvailable && item.price) {
+                        displayPrice = `₹${item.price.toFixed(2)}`;
+                      } else {
+                        displayPrice = '-';
+                      }
+
+                      return (
+                        <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-orange-50'}>
+                          <td className="border border-gray-200 p-4 font-medium">{item.name}</td>
+                          <td className="border border-gray-200 p-4">{displayQty} {item.unit}</td>
+                          <td className="border border-gray-200 p-4 text-center">{displayPrice}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colSpan={2} className="border border-gray-200 p-4 text-right font-bold">Total Price</td>
+                      <td className="border border-gray-200 p-4 text-center font-bold text-amber-700">
+                        ₹{
+                          requiredItems.reduce((sum, item) => {
+                            if (item.notAvailable && item.pricePerUnit && item.minRequired) {
+                              return sum + (item.pricePerUnit * item.minRequired);
+                            } else if (!item.notAvailable && item.price) {
+                              return sum + item.price;
+                            }
+                            return sum;
+                          }, 0).toFixed(2)
+                        }
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 justify-center">
               <Button
@@ -185,9 +321,15 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                 className="flex items-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700"
               >
                 <Download className="h-4 w-4" />
-                Download PDF Report
+                Download Full Inventory PDF
               </Button>
-              
+              <Button
+                onClick={generateRequiredPDF}
+                className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600"
+              >
+                <Download className="h-4 w-4" />
+                Download Required Items & Prices
+              </Button>
               <Button
                 onClick={onNewForm}
                 variant="outline"
