@@ -72,7 +72,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
       item.available ? 'Available' : '',
       item.notAvailable ? 'Not-Available' : ''
     ]);
-    const dateString = new Date(submissionDate).toLocaleDateString('en-IN');
+    const dateString = new Date(submissionDate).toLocaleDateString('en-CA'); // YYYY-MM-DD
     const timeString = new Date(submissionDate).toLocaleTimeString('en-IN');
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     doc.setFontSize(14);
@@ -91,13 +91,12 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
       alternateRowStyles: { fillColor: [255, 255, 255] },
       columnStyles: { 5: { textColor: [39, 174, 96] }, 6: { textColor: [192, 57, 43] } }
     });
-    doc.save("cafe-inventory-full.pdf");
+    doc.save(`Cafe Inventory Full (${dateString}).pdf`);
   };
 
   // PDF for required items only
   const generateRequiredPDF = () => {
     const tableData = requiredItems.map(item => {
-      // If not available, use minRequired as quantity and price for minRequired
       let displayQty = item.notAvailable
         ? (item.minRequired ?? 0)
         : item.quantity;
@@ -114,7 +113,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
       ];
     });
 
-    const dateString = new Date(submissionDate).toLocaleDateString('en-IN');
+    const dateString = new Date(submissionDate).toLocaleDateString('en-CA'); // YYYY-MM-DD
     const timeString = new Date(submissionDate).toLocaleTimeString('en-IN');
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     doc.setFontSize(14);
@@ -143,7 +142,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
     }, 0);
     doc.setFontSize(12);
     doc.text(`Total Price: ₹${total.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 10, { align: "right" });
-    doc.save("cafe-required-items.pdf");
+    doc.save(`Required Items (${dateString}).pdf`);
   };
 
   return (
