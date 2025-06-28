@@ -142,7 +142,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
             : 0;
           return { ...item, neededQty, price };
         })
-        .filter(item => item.neededQty > 0 || item.notAvailable);
+        .filter(item => !item.available && (item.neededQty > 0 || item.notAvailable)); // <-- FIXED
 
       return {
         title: section.title,
