@@ -451,13 +451,20 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                           // Always convert enteredQty to baseUnit for price calculation
                           let qtyForPrice = convertToBaseUnit(enteredQty, enteredUnit, baseUnit);
 
-                          let requiredQty = Math.max(minRequired - qtyForPrice, 0);
+                          let requiredQty = 0;
                           let price = 0;
-                          if (item.notAvailable) {
+                          if (item.available) {
+                            // If available is checked, item is fully sufficient, so requiredQty stays 0 and price stays 0
+                            requiredQty = 0;
+                            price = 0;
+                          } else if (item.notAvailable) {
                             requiredQty = minRequired;
                             price = pricePerUnit * minRequired;
-                          } else if (!item.available && requiredQty > 0) {
-                            price = requiredQty * pricePerUnit;
+                          } else {
+                            requiredQty = Math.max(minRequired - qtyForPrice, 0);
+                            if (requiredQty > 0) {
+                              price = requiredQty * pricePerUnit;
+                            }
                           }
                           return (
                             <tr key={item.id}>

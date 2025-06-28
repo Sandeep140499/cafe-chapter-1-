@@ -62,7 +62,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
 
   // Only required items (entered quantity > 0)
   const requiredItems = itemsWithPrice.filter(
-    item => item.neededQty > 0 || item.notAvailable
+    item => !item.available && (item.neededQty > 0 || item.notAvailable)
   );
 
   // PDF for all items (with required and price)
