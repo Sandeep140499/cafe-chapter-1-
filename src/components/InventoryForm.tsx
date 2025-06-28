@@ -340,7 +340,8 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
     const submissionData = {
       submitterName: submitterName.trim(),
       items: sections.flatMap(section => section.items),
-      submissionDate: new Date()
+      submissionDate: new Date(),
+      sections: sections // <-- Add this line to include categories!
     };
 
     onSubmit(submissionData);
@@ -450,9 +451,13 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                           // Always convert enteredQty to baseUnit for price calculation
                           let qtyForPrice = convertToBaseUnit(enteredQty, enteredUnit, baseUnit);
 
+                          let requiredQty = Math.max(minRequired - qtyForPrice, 0);
                           let price = 0;
-                          if (qtyForPrice > 0 && pricePerUnit > 0 && minRequired > 0) {
-                            price = (qtyForPrice / minRequired) * pricePerUnit;
+                          if (item.notAvailable) {
+                            requiredQty = minRequired;
+                            price = pricePerUnit * minRequired;
+                          } else if (!item.available && requiredQty > 0) {
+                            price = requiredQty * pricePerUnit;
                           }
                           return (
                             <tr key={item.id}>
@@ -497,7 +502,7 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                                 )}
                               </td>
                               <td className="border border-gray-200 p-3 text-center">
-                                {qtyForPrice > 0 && pricePerUnit > 0
+                                {requiredQty > 0 && pricePerUnit > 0
                                   ? `₹${price.toFixed(2)}`
                                   : '-'}
                               </td>

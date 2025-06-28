@@ -22,6 +22,10 @@ interface InventoryResultsProps {
     submitterName: string;
     items: InventoryItem[];
     submissionDate: Date;
+    sections?: {
+      title: string;
+      items: InventoryItem[];
+    }[];
   };
   onBack: () => void;
   onNewForm: () => void;
@@ -41,24 +45,24 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
 
   // Calculate price for each item and total
   const itemsWithPrice = items.map(item => {
-    const enteredQty = parseFloat(item.quantity) || 0;
     const minRequired = item.minRequired || 0;
     const pricePerUnit = item.pricePerUnit || 0;
     const baseUnit = item.unit;
-    // If you allow custom units, use them here, otherwise use baseUnit
-    const enteredUnit = item.unit; // or customUnits[item.id] if you pass it
-    const qtyForPrice = convertToBaseUnit(enteredQty, enteredUnit, baseUnit);
-    const price = (qtyForPrice > 0 && pricePerUnit > 0 && minRequired > 0)
-      ? (qtyForPrice / minRequired) * pricePerUnit
+    const enteredUnit = item.unit; // or customUnits[item.id] if you use custom units
+    const availableQty = parseFloat(item.quantity) || 0;
+    const availableQtyInBase = convertToBaseUnit(availableQty, enteredUnit, baseUnit);
+    const neededQty = Math.max(minRequired - availableQtyInBase, 0);
+    const price = (neededQty > 0 && minRequired > 0 && pricePerUnit > 0)
+      ? (neededQty / minRequired) * pricePerUnit
       : 0;
-    return { ...item, price, qtyForPrice };
+    return { ...item, price, neededQty };
   });
 
   const totalPrice = itemsWithPrice.reduce((sum, item) => sum + (item.price || 0), 0);
 
   // Only required items (entered quantity > 0)
   const requiredItems = itemsWithPrice.filter(
-    item => item.qtyForPrice > 0 || item.notAvailable
+    item => item.neededQty > 0 || item.notAvailable
   );
 
   // PDF for all items (with required and price)
@@ -94,54 +98,113 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
     doc.save(`Cafe Inventory Full (${dateString}).pdf`);
   };
 
+  // Add this utility to group items by category
+  const groupRequiredItemsByCategory = (sections) => {
+    return sections.map(section => {
+      // Only include items that are required (neededQty > 0 or notAvailable)
+      const requiredItems = section.items
+        .map(item => {
+          const minRequired = item.minRequired || 0;
+          const pricePerUnit = item.pricePerUnit || 0;
+          const baseUnit = item.unit;
+          const enteredUnit = item.unit;
+          const availableQty = parseFloat(item.quantity) || 0;
+          const availableQtyInBase = convertToBaseUnit(availableQty, enteredUnit, baseUnit);
+          const neededQty = Math.max(minRequired - availableQtyInBase, 0);
+          const price = (neededQty > 0 && minRequired > 0 && pricePerUnit > 0)
+            ? (neededQty / minRequired) * pricePerUnit
+            : 0;
+          return { ...item, neededQty, price };
+        })
+        .filter(item => item.neededQty > 0 || item.notAvailable);
+
+      return {
+        title: section.title,
+        items: requiredItems
+      };
+    }).filter(section => section.items.length > 0);
+  };
+
   // PDF for required items only
   const generateRequiredPDF = () => {
-    const tableData = requiredItems.map(item => {
-      let displayQty = item.notAvailable
-        ? (item.minRequired ?? 0)
-        : item.quantity;
-      let displayPrice = '-';
-      if (item.notAvailable && item.pricePerUnit && item.minRequired) {
-        displayPrice = `₹${(item.pricePerUnit * item.minRequired).toFixed(2)}`;
-      } else if (!item.notAvailable && item.price) {
-        displayPrice = `₹${item.price.toFixed(2)}`;
-      }
-      return [
-        item.name,
-        `${displayQty} ${item.unit}`,
-        displayPrice
-      ];
+    const grouped = (data.sections || []).map(section => {
+      const requiredItems = section.items
+        .map(item => {
+          const minRequired = item.minRequired || 0;
+          const pricePerUnit = item.pricePerUnit || 0;
+          const baseUnit = item.unit;
+          const enteredUnit = item.unit;
+          const availableQty = parseFloat(item.quantity) || 0;
+          const availableQtyInBase = convertToBaseUnit(availableQty, enteredUnit, baseUnit);
+          const neededQty = Math.max(minRequired - availableQtyInBase, 0);
+          const price = (neededQty > 0 && minRequired > 0 && pricePerUnit > 0)
+            ? (neededQty / minRequired) * pricePerUnit
+            : 0;
+          return { ...item, neededQty, price };
+        })
+        .filter(item => item.neededQty > 0 || item.notAvailable);
+
+      return {
+        title: section.title,
+        items: requiredItems
+      };
+    }).filter(section => section.items.length > 0);
+
+    const dateString = new Date(data.submissionDate).toLocaleDateString('en-CA');
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    let grandTotal = 0;
+
+    grouped.forEach((section, idx) => {
+      if (idx > 0) doc.addPage();
+      doc.setFontSize(14);
+      doc.text(`Category: ${section.title}`, 105, 15, { align: "center" });
+      doc.setFontSize(10);
+      doc.text(`Date: ${dateString}`, 105, 22, { align: "center" });
+
+      const tableData = section.items.map(item => {
+        const displayQty = item.notAvailable
+          ? item.minRequired ?? 0
+          : item.neededQty;
+        const displayPrice = item.notAvailable && item.pricePerUnit && item.minRequired
+          ? (item.pricePerUnit * item.minRequired)
+          : item.price || 0;
+        return [
+          item.name,
+          `${displayQty} ${item.unit}`,
+          `₹${displayPrice.toFixed(2)}`
+        ];
+      });
+
+      const sectionTotal = section.items.reduce((sum, item) => {
+        if (item.notAvailable && item.pricePerUnit && item.minRequired) {
+          return sum + (item.pricePerUnit * item.minRequired);
+        } else if (!item.notAvailable && item.price) {
+          return sum + item.price;
+        }
+        return sum;
+      }, 0);
+
+      grandTotal += sectionTotal;
+
+      autoTable(doc, {
+        head: [['Item Name', 'Net Quantity', 'Price']],
+        body: tableData,
+        startY: 30,
+        theme: 'grid',
+        styles: { fontSize: 8, cellPadding: 3, halign: 'center', valign: 'middle', textColor: [40, 40, 40] },
+        headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255], fontStyle: 'bold' },
+        bodyStyles: { fillColor: [236, 240, 241], textColor: [44, 62, 80] },
+        alternateRowStyles: { fillColor: [255, 255, 255] }
+      });
+
+      doc.setFontSize(12);
+      doc.text(`Total for ${section.title}: ₹${sectionTotal.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 10, { align: "right" });
     });
 
-    const dateString = new Date(submissionDate).toLocaleDateString('en-CA'); // YYYY-MM-DD
-    const timeString = new Date(submissionDate).toLocaleTimeString('en-IN');
-    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    // Add grand total on last page
     doc.setFontSize(14);
-    doc.text("Cafe Chapter 1 Gautam Nagar Required Items", 105, 15, { align: "center" });
-    doc.setFontSize(10);
-    doc.text(`Submitted by: ${submitterName}`, 105, 22, { align: "center" });
-    doc.text(`Date: ${dateString}   Time: ${timeString}`, 105, 28, { align: "center" });
-    autoTable(doc, {
-      head: [['Item Name', 'Net Quantity', 'Price']],
-      body: tableData,
-      startY: 35,
-      theme: 'grid',
-      styles: { fontSize: 8, cellPadding: 3, halign: 'center', valign: 'middle', textColor: [40, 40, 40] },
-      headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255], fontStyle: 'bold' },
-      bodyStyles: { fillColor: [236, 240, 241], textColor: [44, 62, 80] },
-      alternateRowStyles: { fillColor: [255, 255, 255] }
-    });
-    // Calculate total price for required items
-    const total = requiredItems.reduce((sum, item) => {
-      if (item.notAvailable && item.pricePerUnit && item.minRequired) {
-        return sum + (item.pricePerUnit * item.minRequired);
-      } else if (!item.notAvailable && item.price) {
-        return sum + item.price;
-      }
-      return sum;
-    }, 0);
-    doc.setFontSize(12);
-    doc.text(`Total Price: ₹${total.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 10, { align: "right" });
+    doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 20, { align: "right" });
+
     doc.save(`Required Items (${dateString}).pdf`);
   };
 
@@ -261,27 +324,13 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                   </thead>
                   <tbody>
                     {requiredItems.map((item, index) => {
-                      // If not available, show minRequired as quantity and price for minRequired
-                      let displayQty = item.notAvailable
-                        ? (item.minRequired ?? 0)
-                        : item.quantity;
-                      let displayPrice = item.notAvailable
-                        ? ((item.pricePerUnit && item.minRequired) ? (item.pricePerUnit).toFixed(2) : '-')
-                        : (item.price ? item.price.toFixed(2) : '-');
-
-                      // If not available, calculate price for minRequired
-                      if (item.notAvailable && item.pricePerUnit && item.minRequired) {
-                        displayPrice = `₹${(item.pricePerUnit).toFixed(2)}`;
-                        // If pricePerUnit is for minRequired unit, price is pricePerUnit
-                        // If pricePerUnit is per unit, and minRequired is not 1, multiply
-                        if (item.minRequired !== 1) {
-                          displayPrice = `₹${(item.pricePerUnit * item.minRequired).toFixed(2)}`;
-                        }
-                      } else if (!item.notAvailable && item.price) {
-                        displayPrice = `₹${item.price.toFixed(2)}`;
-                      } else {
-                        displayPrice = '-';
-                      }
+                      // If not available, show minRequired as needed and price for minRequired
+                      const displayQty = item.notAvailable
+                        ? item.minRequired ?? 0
+                        : item.neededQty;
+                      const displayPrice = item.notAvailable
+                        ? (item.pricePerUnit && item.minRequired ? `₹${item.pricePerUnit.toFixed(2)}` : '-')
+                        : (item.price ? `₹${item.price.toFixed(2)}` : '-');
 
                       return (
                         <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-orange-50'}>
@@ -345,3 +394,16 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
 };
 
 export default InventoryResults;
+
+/* Example in your parent component or after form submit:
+<InventoryResults
+  data={{
+    submitterName,
+    items: allItemsFlat, // your flat items array
+    submissionDate,
+    sections: updatedSections // <-- pass your sections array here!
+  }}
+  onBack={...}
+  onNewForm={...}
+/>
+*/
