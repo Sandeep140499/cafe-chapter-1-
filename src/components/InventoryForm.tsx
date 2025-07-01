@@ -29,63 +29,63 @@ const initialSections: InventorySection[] = [
   {
     title: 'GROCREY ITEMS',
     items: [
-      { id: '1', name: 'sugar', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 42 },
-      { id: '2', name: 'bura', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
-      { id: '3', name: 'dairyMilk', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 10 },
-      { id: '4', name: 'kewraJal', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 30 },
-      { id: '5', name: 'maida', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 35 },
-      { id: '6', name: 'ararot', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '7', name: 'pasta', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 80 },
-      { id: '8', name: 'sabutLalMirch', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 100, pricePerUnit: 20 },
-      { id: '9', name: 'cornFlakes', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 50 },
-      { id: '10', name: 'kitKat', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
-      { id: '11', name: 'dryFruits', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 100, pricePerUnit: 120 },
-      { id: '12', name: 'maggiMasala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 5 },
-      { id: '13', name: 'oreo', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 15 },
-      { id: '14', name: 'tea', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '15', name: 'maggi', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 12 },
-      { id: '16', name: 'oil', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 120 },
+      { id: '1', name: 'Sugar', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1.5, pricePerUnit: 44 },
+      { id: '2', name: 'Bura', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 50 },
+      { id: '3', name: 'Dairy Milk', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 6, pricePerUnit: 10 },
+      { id: '4', name: 'Kewra Jal', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 68 },
+      { id: '5', name: 'Maida', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1.5, pricePerUnit: 36 },
+      { id: '6', name: 'Ararot', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 50 },
+      { id: '7', name: 'Pasta', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 60 },
+      { id: '8', name: 'Sabut Lal Mirch', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 200, pricePerUnit: 0.2 },
+      { id: '9', name: 'Corn Flakes', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 180 },
+      { id: '10', name: 'KitKat', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 10 },
+      { id: '11', name: 'Dry Fruits', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 0.9 },
+      { id: '12', name: 'Maggi Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 5 },
+      { id: '13', name: 'Oreo', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 10 },
+      { id: '14', name: 'Tea', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 250, pricePerUnit: 0.22 },
+      { id: '15', name: 'Maggi', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 15 },
+      { id: '16', name: 'Oil', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 130 },
     ],
   },
   {
     title: 'MOMOS',
     items: [
-      { id: '17', name: 'vegMomos', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 8 },
-      { id: '18', name: 'paneerMomos', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 10 },
-      { id: '19', name: 'chickenMomos', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 12 },
+      { id: '17', name: 'Veg Momos', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 72, pricePerUnit: 2.5 },
+      { id: '18', name: 'Paneer Momos', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 72, pricePerUnit: 3.33 },
+      { id: '19', name: 'Chicken Momos', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 72, pricePerUnit: 3.33 },
     ],
   },
   {
     title: 'COLDDRINKS',
     items: [
-      { id: '20', name: 'coke', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
-      { id: '21', name: 'sprite', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
-      { id: '22', name: 'fanta', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
+      { id: '20', name: 'Coke', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
+      { id: '21', name: 'Sprite', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
+      { id: '22', name: 'Fanta', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
     ],
   },
   {
     title: 'DAILY ITEMS',
     items: [
-      { id: '23', name: 'chicken', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 500, pricePerUnit: 200 },
-      { id: '24', name: 'paneer', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 500, pricePerUnit: 180 },
-      { id: '25', name: 'ice', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 30 },
-      { id: '26', name: 'sweetcorn', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
-      { id: '27', name: 'smokedChicken', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 250, pricePerUnit: 120 },
-      { id: '28', name: 'chickenTikka', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 250, pricePerUnit: 130 },
-      { id: '29', name: 'paneerTikka', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 250, pricePerUnit: 110 },
-      { id: '30', name: 'pizzaLarge', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 200 },
-      { id: '31', name: 'pizzaSmall', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 120 },
-      { id: '32', name: 'milk', quantity: '', unit: 'ltr', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '33', name: 'garlicBreads', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 50 },
-      { id: '34', name: 'burgerBun', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 30 },
-      { id: '35', name: 'jumboBread', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
-      { id: '36', name: 'milkPowder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 80 },
-      { id: '37', name: 'coffee', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 90 },
-      { id: '38', name: 'dahi', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '39', name: 'mustardOil', quantity: '', unit: 'ltr', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 150 },
-      { id: '40', name: 'rabri', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 50 },
-      { id: '41', name: 'egg', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 6, pricePerUnit: 60 },
-      { id: '42', name: 'butter', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 55 },
+      { id: '23', name: 'Chicken', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 100, pricePerUnit: 200 },
+      { id: '24', name: 'Paneer', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 180 },
+      { id: '25', name: 'Ice', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 8, pricePerUnit: 10 },
+      { id: '26', name: 'Sweet corn', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
+      { id: '27', name: 'Smoked Chicken', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 120 },
+      { id: '28', name: 'Chicken Tikka', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 130 },
+      { id: '29', name: 'Paneer Tikka', quantity: '', unit: 'g', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 110 },
+      { id: '30', name: 'Pizza Large', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 6, pricePerUnit: 200 },
+      { id: '31', name: 'Pizza Small', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 6, pricePerUnit: 120 },
+      { id: '32', name: 'Milk', quantity: '', unit: 'ltr', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
+      { id: '33', name: 'Garlic Breads', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 50 },
+      { id: '34', name: 'Burger Bun', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 3, pricePerUnit: 30 },
+      { id: '35', name: 'Jumbo Bread', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
+      { id: '36', name: 'Milk Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 80 },
+      { id: '37', name: 'Coffee', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 100, pricePerUnit: 90 },
+      { id: '38', name: 'Dahi', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
+      // { id: '39', name: 'MustardOil', quantity: '', unit: 'ltr', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 150 },
+      { id: '40', name: 'Rabri', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 50 },
+      { id: '41', name: 'Egg', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 60 },
+      { id: '42', name: 'Butter', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 55 },
     ],
   },
   {
@@ -110,18 +110,18 @@ const initialSections: InventorySection[] = [
   {
     title: 'SAUCES / FLAVOURS (ROL / HYPER PURE)',
     items: [
-      { id: '53', name: 'Cheese', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 80 },
-      { id: '54', name: 'Jalapeno Dip', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
+      { id: '53', name: 'Cheese', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 80 },
+      { id: '54', name: 'Jalapeno Dip', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 60 },
       { id: '55', name: 'Oregano', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
       { id: '56', name: 'Aloo Tikki', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
       { id: '57', name: 'Chicken Patty', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 70 },
       { id: '58', name: 'Sugar Pouch', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 10 },
       { id: '59', name: 'Pizza Pasta Sauce', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 50 },
-      { id: '60', name: 'Tomato Ketchup', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 30 },
-      { id: '61', name: 'Momo Mayo', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
+      { id: '60', name: 'Tomato Ketchup', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 30 },
+      { id: '61', name: 'Momo Mayo', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
       { id: '62', name: 'Cheese Slice', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
       { id: '63', name: 'Peri Peri Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
-      { id: '64', name: 'White Sauce', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
+      { id: '64', name: 'White Sauce', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
       { id: '65', name: 'Chilly Flakes', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
       { id: '66', name: 'Veg Patty', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
       { id: '67', name: 'Funfood Mayo', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
@@ -130,61 +130,61 @@ const initialSections: InventorySection[] = [
   {
     title: 'PACKING ITEMS (ROL / HYPER PURE)',
     items: [
-      { id: '68', name: 'Large Pizza Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 15 },
-      { id: '69', name: 'Small Pizza Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 10 },
-      { id: '70', name: 'Round Small Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 8 },
-      { id: '71', name: 'Wooden Fork', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 2 },
-      { id: '72', name: 'Hot Coffee Box 150 ml', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 5 },
-      { id: '72', name: 'Hot Coffee Box 200 ml', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 6 },
-      { id: '73', name: 'Momos Chatani Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 4 },
-      { id: '74', name: 'Butter Paper', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 20 },
-      { id: '75', name: 'Momo Plate', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 3 },
-      { id: '76', name: 'Pasta Bowl', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 8 },
+      { id: '68', name: 'Large Pizza Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 15 },
+      { id: '69', name: 'Small Pizza Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 10 },
+      { id: '70', name: 'Round Small Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 8 },
+      { id: '71', name: 'Wooden Fork', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 2 },
+      { id: '72', name: 'Hot Coffee Box 150 ml', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 5 },
+      { id: '72', name: 'Hot Coffee Box 200 ml', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 6 },
+      { id: '73', name: 'Momos Chatani Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 4 },
+      { id: '74', name: 'Butter Paper', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
+      { id: '75', name: 'Momo Plate', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 3 },
+      { id: '76', name: 'Pasta Bowl', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 25, pricePerUnit: 8 },
       { id: '77', name: 'Straw', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 10 },
-      { id: '78', name: 'Wooden Spoon', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 10, pricePerUnit: 2 },
-      { id: '79', name: 'Large Envelope', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 4 },
-      { id: '80', name: 'Small Envelope', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 3 },
-      { id: '81', name: 'Tissues', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 20 },
-      { id: '82', name: 'Polybag', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 10 },
-      { id: '83', name: 'Small Aluminium Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 6 },
-      { id: '84', name: 'Cold Coffee Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 7 },
-      { id: '84', name: 'Cold Coffee Box Packaging', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 8 },
-      { id: '85', name: 'Large Aluminium Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 10 },
-      { id: '86', name: 'Kulhad Tea', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 8 },
-      { id: '86', name: 'Kulhad Lassi', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 8 },
-      { id: '87', name: 'Coffee Stick', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 15 },
+      { id: '78', name: 'Wooden Spoon', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 2 },
+      { id: '79', name: 'Large Envelope', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 4 },
+      { id: '80', name: 'Small Envelope', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 50, pricePerUnit: 3 },
+      { id: '81', name: 'Tissues', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 5, pricePerUnit: 20 },
+      { id: '82', name: 'Polybag', quantity: '', unit: 'kt', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 10 },
+      { id: '83', name: 'Small Aluminium Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 25, pricePerUnit: 6 },
+      { id: '84', name: 'Cold Coffee Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 25, pricePerUnit: 7 },
+      { id: '84', name: 'Cold Coffee Box Packaging', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 25, pricePerUnit: 8 },
+      { id: '85', name: 'Large Aluminium Box', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 25, pricePerUnit: 10 },
+      { id: '86', name: 'Kulhad Tea', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 25, pricePerUnit: 8 },
+      { id: '86', name: 'Kulhad Lassi', quantity: '', unit: 'pcs', available: false, notAvailable: false, minRequired: 15, pricePerUnit: 8 },
+      { id: '87', name: 'Coffee Stick', quantity: '', unit: 'kg', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 15 },
     ],
   },
   {
     title: 'MOCKTAILS / MILKSHAKE',
     items: [
-      { id: '88', name: 'Lemon Ice Tea', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '89', name: 'Green Apple', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '90', name: 'Vanilla', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '91', name: 'Peach Passion', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '92', name: 'Chocolate Sauce', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 70 },
-      { id: '93', name: 'Strawberry Milk Shake', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 70 },
-      { id: '94', name: 'Watermelon', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '95', name: 'Butterscotch', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '96', name: 'Hazelnut', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 70 },
-      { id: '97', name: 'Mango', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '98', name: 'Mint Mojito', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '99', name: 'Orange', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '100', name: 'Strawberry Mocktail', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 60 },
-      { id: '101', name: 'Soda', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
-      { id: '102', name: 'Water Bottle', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
+      { id: '88', name: 'Lemon Ice Tea', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '89', name: 'Green Apple', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '90', name: 'Vanilla', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '91', name: 'Peach Passion', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '92', name: 'Chocolate Sauce', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 70 },
+      { id: '93', name: 'Strawberry Milk Shake', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 70 },
+      { id: '94', name: 'Watermelon', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '95', name: 'Butterscotch', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '96', name: 'Hazelnut', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 70 },
+      { id: '97', name: 'Mango', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '98', name: 'Mint Mojito', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '99', name: 'Orange', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '100', name: 'Strawberry Mocktail', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 60 },
+      { id: '101', name: 'Soda', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 20 },
+      { id: '102', name: 'Water Bottle', quantity: '', unit: 'btl', available: false, notAvailable: false, minRequired: 0.5, pricePerUnit: 20 },
     ],
   },
   {
     title: 'MASALA',
     items: [
-      { id: '103', name: 'Mirch Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 30 },
-      { id: '104', name: 'Garam Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 40 },
-      { id: '105', name: 'Haldi Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
-      { id: '106', name: 'Chicken Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 35 },
-      { id: '107', name: 'Chat Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 25 },
-      { id: '108', name: 'Dhania Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 20 },
-      { id: '109', name: 'Kali Mirch', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 1, pricePerUnit: 35 },
+      { id: '103', name: 'Mirch Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 30 },
+      { id: '104', name: 'Garam Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 40 },
+      { id: '105', name: 'Haldi Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 20 },
+      { id: '106', name: 'Chicken Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 35 },
+      { id: '107', name: 'Chat Masala', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 25 },
+      { id: '108', name: 'Dhania Powder', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 20 },
+      { id: '109', name: 'Kali Mirch', quantity: '', unit: 'pkt', available: false, notAvailable: false, minRequired: 2, pricePerUnit: 35 },
     ],
   },
   // {
@@ -371,6 +371,15 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
     return qty;
   };
 
+  function toCamelCaseLabel(str: string) {
+    if (!str) return '';
+    return str
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, s => s.toUpperCase())
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-6">
       <div className="max-w-4xl mx-auto">
@@ -434,7 +443,7 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                           <th className="border border-gray-200 p-3 text-left font-semibold text-gray-700">Item Name</th>
                           <th className="border border-gray-200 p-3 text-left font-semibold text-gray-700">Available Quantity</th>
                           <th className="border border-gray-200 p-3 text-left font-semibold text-gray-700">Required</th>
-                          <th className="border border-gray-200 p-3 text-left font-semibold text-gray-700">Price</th>
+                          {/* <th className="border border-gray-200 p-3 text-left font-semibold text-gray-700">Price</th> */}
                           <th className="border border-gray-200 p-3 text-center font-semibold text-gray-700">Available</th>
                           <th className="border border-gray-200 p-3 text-center font-semibold text-gray-700">Not Available</th>
                           <th className="border border-gray-200 p-3 text-center font-semibold text-gray-700">Actions</th>
@@ -452,19 +461,13 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                           let qtyForPrice = convertToBaseUnit(enteredQty, enteredUnit, baseUnit);
 
                           let requiredQty = 0;
-                          let price = 0;
+                          // let price = 0; // Hide price calculation for now
                           if (item.available) {
-                            // If available is checked, item is fully sufficient, so requiredQty stays 0 and price stays 0
                             requiredQty = 0;
-                            price = 0;
                           } else if (item.notAvailable) {
                             requiredQty = minRequired;
-                            price = pricePerUnit * minRequired;
                           } else {
                             requiredQty = Math.max(minRequired - qtyForPrice, 0);
-                            if (requiredQty > 0) {
-                              price = requiredQty * pricePerUnit;
-                            }
                           }
                           return (
                             <tr key={item.id}>
@@ -489,11 +492,9 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                                     onChange={e => handleUnitChange(item.id, e.target.value)}
                                     className="border border-gray-200 rounded px-2 py-1 text-sm"
                                   >
-                                    {/* Default (custom or original) unit */}
                                     <option value={customUnits[item.id] || item.unit}>
                                       {customUnits[item.id] || item.unit}
                                     </option>
-                                    {/* Other units */}
                                     {allUnits
                                       .filter(u => u !== (customUnits[item.id] || item.unit))
                                       .map(u => (
@@ -508,11 +509,12 @@ const InventoryForm = ({ onBack, onSubmit }: InventoryFormProps) => {
                                   <div className="text-xs text-red-600">Required: {minRequired} {baseUnit}</div>
                                 )}
                               </td>
-                              <td className="border border-gray-200 p-3 text-center">
+                              {/* Price column hidden for now */}
+                              {/* <td className="border border-gray-200 p-3 text-center">
                                 {requiredQty > 0 && pricePerUnit > 0
                                   ? `₹${price.toFixed(2)}`
                                   : '-'}
-                              </td>
+                              </td> */}
                               <td className="border border-gray-200 p-3 text-center">
                                 <Checkbox
                                   checked={item.available}

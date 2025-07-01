@@ -65,14 +65,12 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
     item => !item.available && (item.neededQty > 0 || item.notAvailable)
   );
 
-  // PDF for all items (with required and price)
+  // PDF for all items (hide price columns)
   const generatePDF = () => {
     const tableData = itemsWithPrice.map(item => [
       item.name,
       `${item.quantity} ${item.unit}`,
       `${item.minRequired ?? '-'} ${item.unit}`,
-      item.pricePerUnit ? `₹${item.pricePerUnit}` : '-',
-      item.price ? `₹${item.price.toFixed(2)}` : '-',
       item.available ? 'Available' : '',
       item.notAvailable ? 'Not-Available' : ''
     ]);
@@ -85,7 +83,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
     doc.text(`Submitted by: ${submitterName}`, 105, 22, { align: "center" });
     doc.text(`Date: ${dateString}   Time: ${timeString}`, 105, 28, { align: "center" });
     autoTable(doc, {
-      head: [['Item Name', 'Net Quantity', 'Required', 'Price/Unit', 'Price', 'Available', 'Not Available']],
+      head: [['Item Name', 'Net Quantity', 'Required', 'Available', 'Not Available']],
       body: tableData,
       startY: 35,
       theme: 'grid',
@@ -93,7 +91,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
       headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255], fontStyle: 'bold' },
       bodyStyles: { fillColor: [236, 240, 241], textColor: [44, 62, 80] },
       alternateRowStyles: { fillColor: [255, 255, 255] },
-      columnStyles: { 5: { textColor: [39, 174, 96] }, 6: { textColor: [192, 57, 43] } }
+      columnStyles: { 3: { textColor: [39, 174, 96] }, 4: { textColor: [192, 57, 43] } }
     });
     doc.save(`Cafe Inventory Full (${dateString}).pdf`);
   };
@@ -125,7 +123,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
     }).filter(section => section.items.length > 0);
   };
 
-  // PDF for required items only
+  // PDF for required items only (hide price column)
   const generateRequiredPDF = () => {
     const grouped = (data.sections || []).map(section => {
       const requiredItems = section.items
@@ -142,8 +140,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
             : 0;
           return { ...item, neededQty, price };
         })
-        .filter(item => !item.available && (item.neededQty > 0 || item.notAvailable)); // <-- FIXED
-
+        .filter(item => !item.available && (item.neededQty > 0 || item.notAvailable));
       return {
         title: section.title,
         items: requiredItems
@@ -152,7 +149,6 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
 
     const dateString = new Date(data.submissionDate).toLocaleDateString('en-CA');
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-    let grandTotal = 0;
 
     grouped.forEach((section, idx) => {
       if (idx > 0) doc.addPage();
@@ -165,29 +161,14 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
         const displayQty = item.notAvailable
           ? item.minRequired ?? 0
           : item.neededQty;
-        const displayPrice = item.notAvailable && item.pricePerUnit && item.minRequired
-          ? (item.pricePerUnit * item.minRequired)
-          : item.price || 0;
         return [
           item.name,
-          `${displayQty} ${item.unit}`,
-          `₹${displayPrice.toFixed(2)}`
+          `${displayQty} ${item.unit}`
         ];
       });
 
-      const sectionTotal = section.items.reduce((sum, item) => {
-        if (item.notAvailable && item.pricePerUnit && item.minRequired) {
-          return sum + (item.pricePerUnit * item.minRequired);
-        } else if (!item.notAvailable && item.price) {
-          return sum + item.price;
-        }
-        return sum;
-      }, 0);
-
-      grandTotal += sectionTotal;
-
       autoTable(doc, {
-        head: [['Item Name', 'Net Quantity', 'Price']],
+        head: [['Item Name', 'Needed Quantity']],
         body: tableData,
         startY: 30,
         theme: 'grid',
@@ -196,14 +177,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
         bodyStyles: { fillColor: [236, 240, 241], textColor: [44, 62, 80] },
         alternateRowStyles: { fillColor: [255, 255, 255] }
       });
-
-      doc.setFontSize(12);
-      doc.text(`Total for ${section.title}: ₹${sectionTotal.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 10, { align: "right" });
     });
-
-    // Add grand total on last page
-    doc.setFontSize(14);
-    doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`, 180, doc.lastAutoTable.finalY + 20, { align: "right" });
 
     doc.save(`Required Items (${dateString}).pdf`);
   };
@@ -275,8 +249,8 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                       <th className="border border-amber-700 p-4 text-left font-semibold">Item Name</th>
                       <th className="border border-amber-700 p-4 text-left font-semibold">Available Quantity</th>
                       <th className="border border-amber-700 p-4 text-center font-semibold">Required</th>
-                      <th className="border border-amber-700 p-4 text-center font-semibold">Price/Unit</th>
-                      <th className="border border-amber-700 p-4 text-center font-semibold">Price</th>
+                      {/* <th className="border border-amber-700 p-4 text-center font-semibold">Price/Unit</th>
+                      <th className="border border-amber-700 p-4 text-center font-semibold">Price</th> */}
                       <th className="border border-amber-700 p-4 text-center font-semibold">Available</th>
                       <th className="border border-amber-700 p-4 text-center font-semibold">Not Available</th>
                     </tr>
@@ -284,11 +258,23 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                   <tbody>
                     {itemsWithPrice.map((item, index) => (
                       <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-amber-25'}>
-                        <td className="border border-gray-200 p-4 font-medium">{item.name}</td>
+                        <td className="border border-gray-200 p-4 font-medium text-amber-700 text-base md:text-lg">
+                          {item.name
+                            ? item.name
+                              .replace(/([A-Z])/g, ' $1')
+                              .replace(/_/g, ' ')
+                              .replace(/\s+/g, ' ')
+                              .replace(/^./, s => s.toUpperCase())
+                              .split(' ')
+                              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                              .join(' ')
+                              .trim()
+                            : ''}
+                        </td>
                         <td className="border border-gray-200 p-4">{item.quantity} {item.unit}</td>
                         <td className="border border-gray-200 p-4 text-center">{item.minRequired ?? '-'} {item.unit}</td>
-                        <td className="border border-gray-200 p-4 text-center">{item.pricePerUnit ? `₹${item.pricePerUnit}` : '-'}</td>
-                        <td className="border border-gray-200 p-4 text-center">{item.price ? `₹${item.price.toFixed(2)}` : '-'}</td>
+                        {/* <td className="border border-gray-200 p-4 text-center">{item.pricePerUnit ? `₹${item.pricePerUnit}` : '-'}</td>
+                        <td className="border border-gray-200 p-4 text-center">{item.price ? `₹${item.price.toFixed(2)}` : '-'}</td> */}
                         <td className="border border-gray-200 p-4 text-center">
                           {item.available && <span className="text-green-600 font-bold">Available</span>}
                         </td>
@@ -307,7 +293,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                   <Package className="h-5 w-5 text-amber-600" />
-                  <h3 className="text-lg font-semibold text-gray-800">Required Items & Prices</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">Required Items</h3>
                 </div>
                 <Badge variant="outline" className="text-amber-600 border-amber-200">
                   {requiredItems.length} Required
@@ -318,46 +304,47 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                   <thead>
                     <tr className="bg-orange-100 text-amber-700">
                       <th className="border border-amber-200 p-4 text-left font-semibold">Item Name</th>
-                      <th className="border border-amber-200 p-4 text-left font-semibold">Net Quantity</th>
-                      <th className="border border-amber-200 p-4 text-center font-semibold">Price</th>
+                      <th className="border border-amber-200 p-4 text-left font-semibold">Needed Quantity</th>
+                      {/* <th className="border border-amber-200 p-4 text-center font-semibold">Price</th> */}
                     </tr>
                   </thead>
                   <tbody>
                     {requiredItems.map((item, index) => {
-                      // If not available, show minRequired as needed and price for minRequired
+                      // If not available, show minRequired as needed
                       const displayQty = item.notAvailable
                         ? item.minRequired ?? 0
                         : item.neededQty;
-                      const displayPrice = item.notAvailable
-                        ? (item.pricePerUnit && item.minRequired ? `₹${item.pricePerUnit.toFixed(2)}` : '-')
-                        : (item.price ? `₹${item.price.toFixed(2)}` : '-');
+                      // const displayPrice = ... (hidden)
 
                       return (
                         <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-orange-50'}>
-                          <td className="border border-gray-200 p-4 font-medium">{item.name}</td>
+                          <td className="border border-gray-200 p-4 font-medium text-amber-700 text-base md:text-lg">
+                            {item.name
+                              ? item.name
+                                .replace(/([A-Z])/g, ' $1')
+                                .replace(/_/g, ' ')
+                                .replace(/\s+/g, ' ')
+                                .replace(/^./, s => s.toUpperCase())
+                                .split(' ')
+                                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                .join(' ')
+                                .trim()
+                              : ''}
+                          </td>
                           <td className="border border-gray-200 p-4">{displayQty} {item.unit}</td>
-                          <td className="border border-gray-200 p-4 text-center">{displayPrice}</td>
+                          {/* <td className="border border-gray-200 p-4 text-center">{displayPrice}</td> */}
                         </tr>
                       );
                     })}
                   </tbody>
-                  <tfoot>
+                  {/* <tfoot>
                     <tr>
                       <td colSpan={2} className="border border-gray-200 p-4 text-right font-bold">Total Price</td>
                       <td className="border border-gray-200 p-4 text-center font-bold text-amber-700">
-                        ₹{
-                          requiredItems.reduce((sum, item) => {
-                            if (item.notAvailable && item.pricePerUnit && item.minRequired) {
-                              return sum + (item.pricePerUnit * item.minRequired);
-                            } else if (!item.notAvailable && item.price) {
-                              return sum + item.price;
-                            }
-                            return sum;
-                          }, 0).toFixed(2)
-                        }
+                        ...total price...
                       </td>
                     </tr>
-                  </tfoot>
+                  </tfoot> */}
                 </table>
               </div>
             </div>
@@ -376,7 +363,7 @@ const InventoryResults = ({ data, onBack, onNewForm }: InventoryResultsProps) =>
                 className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600"
               >
                 <Download className="h-4 w-4" />
-                Download Required Items & Prices
+                Download Needed Items & Prices
               </Button>
               <Button
                 onClick={onNewForm}
